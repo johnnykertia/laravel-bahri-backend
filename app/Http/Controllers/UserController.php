@@ -74,6 +74,9 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->role = $request->role;
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
 
         return redirect()->route('users.index')->with('success','User Updated Success');
@@ -83,6 +86,6 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'User successfully deleted');
+        return redirect()->route('users.index')->with('success', 'User successfully deleted');
     }
 }

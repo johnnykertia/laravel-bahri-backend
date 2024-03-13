@@ -27,5 +27,17 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'phone' => '123456789',
         ]);
+
+        \App\Models\ProfileClinic::factory()->create([
+            'name' => 'JohnWalker',
+            'address' => 'Denpasar',
+            'phone' => '087787676787',
+            'email' => 'johnwalker@example.com',
+            'doctor_name' => 'Dr. Johnwalker',
+            'unique_code' => '12345678'
+        ]);
+
+        //Call Doctor Seed
+        $this->call(DoctorSeeder::class);
     }
 }
