@@ -30,7 +30,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('doctors.update', $doctor) }}" method="POST">
+                    <form action="{{ route('doctors-schedule.update', $doctorSchedule) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -38,118 +38,66 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name</label>
+                                {{-- <label></label>
                                 <input type="text"
                                     class="form-control @error('doctor_name')
                                 is-invalid
                             @enderror"
-                                    name="doctor_name" value="{{ $doctor->doctor_name }}">
+                                    name="doctor_name" value="{{ $doctors->doctor_id }}">
                                 @error('doctor_name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
-                                @enderror
+                                @enderror --}}
+
+                                <select class="form-control selectric @error('doctor_id') is-invalid @enderror"
+                                    name="doctor_id">
+                                    <label>Doctor</label>
+                                    @if($doctors) {
+                                        <option value="{{ $doctors->id }}">{{ $doctors->doctor_name }}</option>
+                                    }
+                                </select>
                             </div>
 
                             <div class="form-group">
-                                <label>Specialist</label>
-                                <input type="text"
-                                    class="form-control @error('doctor_specialist')
-                                is-invalid
-                            @enderror"
-                                    name="doctor_specialist" value="{{ $doctor->doctor_specialist }}">
-                                @error('doctor_specialist')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <label>Jadwal Senin</label>
+                                <input type="text" class="form-control" name="senin"
+                                    value="{{ $doctorSchedule->senin }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Jadwal Selasa</label>
+                                <input type="text" class="form-control" name="selasa"
+                                    value="{{ $doctorSchedule->selasa }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Jadwal Rabu</label>
+                                <input type="text" class="form-control"
+                                    name="rabu"value="{{ $doctorSchedule->rabu }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Jadwal Kamis</label>
+                                <input type="text" class="form-control" name="kamis"
+                                    value="{{ $doctorSchedule->kamis }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Jadwal Jumat</label>
+                                <input type="text" class="form-control" name="jumat"
+                                    value="{{ $doctorSchedule->jumat }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Jadwal Sabtu</label>
+                                <input type="text" class="form-control" name="sabtu"
+                                    value="{{ $doctorSchedule->sabtu }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Jadwal Minggu</label>
+                                <input type="text" class="form-control" name="minggu"
+                                    value="{{ $doctorSchedule->minggu }}">
                             </div>
 
                             <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number"
-                                    class="form-control @error('doctor_phone')
-                                is-invalid
-                            @enderror"
-                                    name="doctor_phone" value="{{ $doctor->doctor_phone }}">
-                                @error('doctor_phone')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            {{-- <div class="form-group">
-                                <label>Photo</label>
-                                <div class="col-sm-9">
-                                    <input type="file"
-                                        class="form-control @error('photo')
-                                        is-invalid
-                                        @enderror"
-                                        name="photo">
-                                </div>
-                                @error('photo')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div> --}}
-
-
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email"
-                                    class="form-control @error('doctor_email')
-                                is-invalid
-                            @enderror"
-                                    name="doctor_email" value="{{ $doctor->doctor_email }}">
-                                @error('doctor_email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Sip</label>
-                                <input type="number"
-                                    class="form-control @error('sip')
-                                is-invalid
-                            @enderror"
-                                    name="sip" value="{{ $doctor->sip }}">
-                                @error('sip')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>ID IHS</label>
-                                <input type="number"
-                                    class="form-control @error('id_ihs')
-                                is-invalid
-                            @enderror"
-                                    name="id_ihs" value="{{ $doctor->id_ihs }}">
-                                @error('id_ihs')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>NIK</label>
-                                <input type="number"
-                                    class="form-control @error('nik')
-                                is-invalid
-                            @enderror"
-                                    name="nik" value="{{ $doctor->nik }}">
-                                @error('nik')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <label>Note</label>
+                                <textarea name="note" class="form-control"></textarea>
                             </div>
 
                         </div>
