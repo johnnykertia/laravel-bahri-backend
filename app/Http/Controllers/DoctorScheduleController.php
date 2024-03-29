@@ -16,7 +16,7 @@ class DoctorScheduleController extends Controller
         $doctorSchedule = DoctorSchedule::with('doctor')->when($request->input('doctor_id'), function ($query, $doctor_id) {
             return $query->where('doctor_id', $doctor_id);
         })
-            ->orderBy('doctor_id', 'desc')
+            ->orderBy('id', 'desc')
             ->paginate(10);
         return view('pages.doctors_schedule.index', compact('doctorSchedule'));
     }
@@ -83,7 +83,7 @@ class DoctorScheduleController extends Controller
             $doctorSchedule->save();
         }
 
-        if ($request->miggu) {
+        if ($request->minggu) {
             $doctorSchedule = new DoctorSchedule;
             $doctorSchedule->doctor_id = $request->doctor_id;
             $doctorSchedule->day = 'Minggu';
@@ -94,11 +94,12 @@ class DoctorScheduleController extends Controller
         return redirect()->route('doctors-schedule.index')->with('success', 'User Created Success');
     }
 
-    // public function show($id)
-    // {
-    //     $doctorSchedule = DB::table('doctor-schedule')->where('id', $id)->first();
-    //     return view('pages.doctors_schedule.index', compact('doctors'));
-    // }
+
+    public function show($id)
+    {
+        $doctorSchedule = DB::table('doctor-schedule')->where('id', $id)->first();
+        return view('pages.doctors_schedule.index', compact('doctors'));
+    }
 
 
     public function edit($id)
@@ -110,29 +111,83 @@ class DoctorScheduleController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
 
         $request->validate([
             'doctor_id' => 'required',
-            'day' => 'required',
             'time' => 'required',
         ]);
 
+        if ($request->senin) {
+            $doctorSchedule = DoctorSchedule::find($id);
+            $doctorSchedule->doctor_id = $request->doctor_id;
+            $doctorSchedule->day = 'Senin';
+            $doctorSchedule->time = $request->senin;
+            $doctorSchedule->save();
+        }
+        if ($request->selasa) {
+            $doctorSchedule = DoctorSchedule::find($id);
+            $doctorSchedule->doctor_id = $request->doctor_id;
+            $doctorSchedule->day = 'Selasa';
+            $doctorSchedule->time = $request->selasa;
+            $doctorSchedule->save();
+        }
+        if ($request->rabu) {
+            $doctorSchedule = DoctorSchedule::find($id);
+            $doctorSchedule->doctor_id = $request->doctor_id;
+            $doctorSchedule->day = 'Rabu';
+            $doctorSchedule->time = $request->rabu;
+            $doctorSchedule->save();
+        }
+        if ($request->kamis) {
+            $doctorSchedule = DoctorSchedule::find($id);
+            $doctorSchedule->doctor_id = $request->doctor_id;
+            $doctorSchedule->day = 'Kamis';
+            $doctorSchedule->time = $request->kamis;
+            $doctorSchedule->save();
+        }
+        if ($request->jumat) {
+            $doctorSchedule = DoctorSchedule::find($id);
+            $doctorSchedule->doctor_id = $request->doctor_id;
+            $doctorSchedule->day = 'Jumat';
+            $doctorSchedule->time = $request->jumat;
+            $doctorSchedule->save();
+        }
+        if ($request->sabtu) {
+            $doctorSchedule = DoctorSchedule::find($id);
+            $doctorSchedule->doctor_id = $request->doctor_id;
+            $doctorSchedule->day = 'Sabtu';
+            $doctorSchedule->time = $request->sabtu;
+            $doctorSchedule->save();
+        }
 
-        $doctorSchedule = DoctorSchedule::find($id);
-        $doctorSchedule->doctor_id = $request->doctor_id;
-        $doctorSchedule->day = $request->day;
-        $doctorSchedule->time = $request->time;
-        $doctorSchedule->status = $request->status;
-        $doctorSchedule->note = $request->note;
-        $doctorSchedule->save();
+        if ($request->minggu) {
+            $doctorSchedule = DoctorSchedule::find($id);
+            $doctorSchedule->doctor_id = $request->doctor_id;
+            $doctorSchedule->day = 'Minggu';
+            $doctorSchedule->time = $request->minggu;
+            $doctorSchedule->save();
+        }
 
-        return redirect()->route('doctors-schedule.index')->with('success', 'User Created Success');
+
+        return redirect()->route('doctors-schedule.index')->with('success', 'Doctor Schedule Updated Success');
     }
 
 
     public function destroy($id)
     {
         DoctorSchedule::find($id)->delete();
-        return redirect()->route('doctors-schedule.index')->with('success', 'User Delete Success');
+        return redirect()->route('doctors-schedule.index')->with('success', 'Doctor Schedule Delete Success');
     }
 }
+
+
+
+
+
+
+    // public function show($id)
+    // {
+    //     $doctorSchedule = DB::table('doctor-schedule')->where('id', $id)->first();
+    //     return view('pages.doctors_schedule.index', compact('doctors'));
+    // }

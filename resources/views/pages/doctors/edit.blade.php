@@ -67,7 +67,7 @@
 
                             <div class="form-group">
                                 <label>Phone</label>
-                                <input type="number"
+                                <input type="tel"
                                     class="form-control @error('doctor_phone')
                                 is-invalid
                             @enderror"
@@ -78,23 +78,6 @@
                                     </div>
                                 @enderror
                             </div>
-
-                            {{-- <div class="form-group">
-                                <label>Photo</label>
-                                <div class="col-sm-9">
-                                    <input type="file"
-                                        class="form-control @error('photo')
-                                        is-invalid
-                                        @enderror"
-                                        name="photo">
-                                </div>
-                                @error('photo')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div> --}}
-
 
                             <div class="form-group">
                                 <label>Email</label>
@@ -168,6 +151,20 @@
 @endpush
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {{--
                             <div class="form-group">
                                 <label for="">Photo</label>
@@ -177,5 +174,23 @@
                                 </div>
                                 @error('image')
                                     <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div> --}}
+
+
+
+                            {{-- <div class="form-group">
+                                <label>Photo</label>
+                                <div class="col-sm-9">
+                                    <input type="file"
+                                        class="form-control @error('photo')
+                                        is-invalid
+                                        @enderror"
+                                        name="photo">
+                                </div>
+                                @error('photo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div> --}}

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Doctor')
+@section('title', 'Edit Doctor Schedule')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -20,17 +20,17 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Doctor</div>
+                    <div class="breadcrumb-item">Doctor Schedule</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Doctor</h2>
+                <h2 class="section-title">Doctor Schedule</h2>
 
 
 
                 <div class="card">
-                    <form action="{{ route('doctors-schedule.update', $doctorSchedule) }}" method="POST">
+                    <form action="{{ route('doctors-schedule.update', $doctorSchedule, $doctors) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -38,82 +38,81 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group">
-                                {{-- <label></label>
-                                <input type="text"
-                                    class="form-control @error('doctor_name')
-                                is-invalid
-                            @enderror"
-                                    name="doctor_name" value="{{ $doctors->doctor_id }}">
-                                @error('doctor_name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror --}}
-
+                                <label>Doctor</label>
                                 <select class="form-control selectric @error('doctor_id') is-invalid @enderror"
                                     name="doctor_id">
-                                    <label>Doctor</label>
-                                    @if($doctors) {
-                                        <option value="{{ $doctors->id }}">{{ $doctors->doctor_name }}</option>
-                                    }
+                                    <option value="">Select Doctor</option>
+                                    @foreach ($doctors as $doctor)
+                                        <option value="{{ $doctor->id }}">{{ $doctor->doctor_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
-
-                            <div class="form-group">
+                            @if ($doctorSchedule->doctor_id)
                                 <label>Jadwal Senin</label>
                                 <input type="text" class="form-control" name="senin"
                                     value="{{ $doctorSchedule->senin }}">
-                            </div>
-                            <div class="form-group">
+                            @elseif($doctorSchedule->doctor_id)
                                 <label>Jadwal Selasa</label>
                                 <input type="text" class="form-control" name="selasa"
                                     value="{{ $doctorSchedule->selasa }}">
-                            </div>
-                            <div class="form-group">
+                            @elseif($doctorSchedule)
                                 <label>Jadwal Rabu</label>
-                                <input type="text" class="form-control"
-                                    name="rabu"value="{{ $doctorSchedule->rabu }}">
-                            </div>
-                            <div class="form-group">
+                                <input type="text" class="form-control" name="rabu"
+                                    value="{{ $doctorSchedule->rabu }}">
+                            @elseif($doctorSchedule)
                                 <label>Jadwal Kamis</label>
                                 <input type="text" class="form-control" name="kamis"
                                     value="{{ $doctorSchedule->kamis }}">
-                            </div>
-                            <div class="form-group">
+                            @elseif($doctorSchedule)
                                 <label>Jadwal Jumat</label>
                                 <input type="text" class="form-control" name="jumat"
                                     value="{{ $doctorSchedule->jumat }}">
-                            </div>
-                            <div class="form-group">
+                            @elseif($doctorSchedule)
                                 <label>Jadwal Sabtu</label>
                                 <input type="text" class="form-control" name="sabtu"
                                     value="{{ $doctorSchedule->sabtu }}">
-                            </div>
-                            <div class="form-group">
+                            @elseif($doctorSchedule)
                                 <label>Jadwal Minggu</label>
                                 <input type="text" class="form-control" name="minggu"
                                     value="{{ $doctorSchedule->minggu }}">
-                            </div>
+                            @else
+                                <p>Ga Ada Jadwal nya Kaka Cantik</p>
+                            @endif
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Note</label>
-                                <textarea name="note" class="form-control"></textarea>
-                            </div>
+                                <textarea name="note" class="form-control" value="{{ $doctors->note }}"></textarea>
+                            </div> --}}
+                        </div>
 
-                        </div>
-                        <div class="card-footer text-right">
-                            <button class="btn btn-primary">Submit</button>
-                        </div>
-                    </form>
                 </div>
-
+                <div class="card-footer">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+                </form>
             </div>
-        </section>
+
+    </div>
+    </section>
     </div>
 @endsection
 
 @push('scripts')
 @endpush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {{--
@@ -125,5 +124,23 @@
                                 </div>
                                 @error('image')
                                     <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div> --}}
+
+
+
+{{-- <div class="form-group">
+                                <label>Photo</label>
+                                <div class="col-sm-9">
+                                    <input type="file"
+                                        class="form-control @error('photo')
+                                        is-invalid
+                                        @enderror"
+                                        name="photo">
+                                </div>
+                                @error('photo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
                                 @enderror
                             </div> --}}

@@ -28,6 +28,7 @@ class DoctorController extends Controller
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
             'doctor_email' => 'required|email',
+            'address' => 'required',
             'sip' => 'required',
             'id_ihs' => 'required',
             'nik' => 'required',
@@ -39,6 +40,7 @@ class DoctorController extends Controller
         $doctor->doctor_specialist = $request->doctor_specialist;
         $doctor->doctor_phone = $request->doctor_phone;
         $doctor->doctor_email = $request->doctor_email;
+        $doctor->address = $request->address;
         $doctor->sip = $request->sip;
         $doctor->id_ihs = $request->id_ihs;
         $doctor->nik = $request->nik;
@@ -51,7 +53,7 @@ class DoctorController extends Controller
             $doctor->save();
         }
 
-        return redirect()->route('doctors.index')->with('success', 'User Created Success');
+        return redirect()->route('doctors.index')->with('success', 'Doctor Created Success');
     }
 
     public function show($id)
@@ -67,40 +69,62 @@ class DoctorController extends Controller
         return view('pages.doctors.edit', compact('doctor'));
     }
 
+
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'doctor_name' => 'required',
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
             'doctor_email' => 'required|email',
             'sip' => 'required',
-            'id_ihs' => 'required',
-            'nik' => 'required',
         ]);
 
+        DB::table('doctors')->where('id', $id)->update([
+            'doctor_name' => $request->doctor_name,
+            'doctor_specialist' => $request->doctor_specialist,
+            'doctor_phone' => $request->doctor_phone,
+            'doctor_email' => $request->doctor_email,
+            'sip' => $request->sip,
+        ]);
 
-        $doctor = Doctor::find($id);
-        $doctor->doctor_name = $request->doctor_name;
-        $doctor->doctor_specialist = $request->doctor_specialist;
-        $doctor->doctor_phone = $request->doctor_phone;
-        $doctor->doctor_email = $request->doctor_email;
-        $doctor->sip = $request->sip;
-        $doctor->id_ihs = $request->id_ihs;
-        $doctor->nik = $request->nik;
-        $doctor->save();
-
-        return redirect()->route('doctors.index')->with('success', 'User Created Success');
+        return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully.');
     }
 
 
     public function destroy($id)
     {
         DB::table('doctors')->where('id', $id)->delete();
-        return redirect()->route('doctors.index')->with('success', 'User Delete Success');
+        return redirect()->route('doctors.index')->with('success', 'Doctor deleted successfully.');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // $imagePath = $this->handleFileUpload($request, 'image');
 
         // $news->image = !empty($imagePath) ? $imagePath : $news->image;
@@ -155,3 +179,32 @@ class DoctorController extends Controller
         // $user->save();
 
         // return redirect()->route('doctors.index')->with('success', 'User Updated Success');
+
+
+
+    // public function update(Request $request, $id)
+    // {
+
+    //     $request->validate([
+    //         'doctor_name' => 'required',
+    //         'doctor_specialist' => 'required',
+    //         'doctor_phone' => 'required',
+    //         'doctor_email' => 'required|email',
+    //         'sip' => 'required',
+    //         'id_ihs' => 'required',
+    //         'nik' => 'required',
+    //     ]);
+
+
+    //     $doctor = Doctor::find($id);
+    //     $doctor->doctor_name = $request->doctor_name;
+    //     $doctor->doctor_specialist = $request->doctor_specialist;
+    //     $doctor->doctor_phone = $request->doctor_phone;
+    //     $doctor->doctor_email = $request->doctor_email;
+    //     $doctor->sip = $request->sip;
+    //     $doctor->id_ihs = $request->id_ihs;
+    //     $doctor->nik = $request->nik;
+    //     $doctor->save();
+
+    //     return redirect()->route('doctors.index')->with('success', 'User Created Success');
+    // }
