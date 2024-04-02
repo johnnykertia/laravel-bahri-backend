@@ -16,7 +16,7 @@ class DoctorScheduleController extends Controller
         $doctorSchedule = DoctorSchedule::with('doctor')->when($request->input('doctor_id'), function ($query, $doctor_id) {
             return $query->where('doctor_id', $doctor_id);
         })
-            ->orderBy('id', 'desc')
+            ->orderBy('doctor_id', 'asc')
             ->paginate(10);
         return view('pages.doctors_schedule.index', compact('doctorSchedule'));
     }

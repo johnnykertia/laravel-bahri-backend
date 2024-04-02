@@ -25,9 +25,14 @@
                         <a class="nav-link" href="{{ route('doctors.index') }}">Doctors</a>
                     </li>
                 </ul>
-                 <ul class="dropdown-menu">
+                <ul class="dropdown-menu">
                     <li class=''>
                         <a class="nav-link" href="{{ route('doctors-schedule.index') }}">Doctor Schedule</a>
+                    </li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li class=''>
+                        <a class="nav-link" href="{{ route('patients.index') }}">Patient</a>
                     </li>
                 </ul>
             </li>
